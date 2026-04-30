@@ -1,0 +1,6 @@
+{
+  "name": "StayEase",
+  "description": "A modern PG (Paying Guest) management system to efficiently track rooms, rent, allocations, and user complaints.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

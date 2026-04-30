@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with role-based access",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "resident"] },
+        "avatarUrl": { "type": "string" },
+        "roomId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "role"]
+    },
+    "Room": {
+      "title": "Room",
+      "description": "A PG room in the hostel",
+      "type": "object",
+      "properties": {
+        "number": { "type": "string" },
+        "type": { "type": "string", "enum": ["Single", "Double", "Triple"] },
+        "rent": { "type": "number" },
+        "capacity": { "type": "number" },
+        "occupancy": { "type": "number" },
+        "status": { "type": "string", "enum": ["Available", "Full", "Maintenance"] }
+      },
+      "required": ["number", "type", "rent", "capacity", "occupancy", "status"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Rent payment record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "month": { "type": "string" },
+        "year": { "type": "number" },
+        "status": { "type": "string", "enum": ["Paid", "Pending", "Failed"] },
+        "method": { "type": "string" },
+        "transactionId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "amount", "month", "year", "status"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "Resident complaint or maintenance request",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "In-Progress", "Resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "description", "status"]
+    },
+    "Notice": {
+      "title": "Notice",
+      "description": "Management announcement",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "priority": { "type": "string", "enum": ["Low", "Normal", "High"] },
+        "authorId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content", "priority", "authorId"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "Resident feedback to management",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "rating", "comment"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/rooms/{roomId}": {
+      "schema": "Room",
+      "description": "Room inventory"
+    },
+    "/payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Rent transactions"
+    },
+    "/complaints/{complaintId}": {
+      "schema": "Complaint",
+      "description": "Resident complaints"
+    },
+    "/notices/{noticeId}": {
+      "schema": "Notice",
+      "description": "Announcements board"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "User feedback"
+    }
+  }
+}
